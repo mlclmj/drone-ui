@@ -11,7 +11,7 @@ export const CRON_LIST_FAILURE = "CRON_LIST_FAILURE";
 export const fetchCrons = async ({ commit }, { namespace, name }) => {
   commit(CRON_LIST_LOADING);
 
-  const req = await fetch(`${instance}/api/repos/${namespace}/${name}/cron`, { headers, credentials: "same-origin" });
+  const req = await fetch(`${instance}/api/repos/${namespace}/${name}/cron`, { headers, credentials: "include" });
   const res = await req.json();
 
   if (req.status > 299) {
@@ -35,7 +35,7 @@ export const fetchCron = async ({ commit }, state) => {
   const { namespace, name, cron } = state.route.params;
   const req = await fetch(`${instance}/api/repos/${namespace}/${name}/cron/${cron}`, {
     headers,
-    credentials: "same-origin"
+    credentials: "include"
   });
   const res = await req.json();
 
@@ -60,7 +60,7 @@ export const deleteCron = async ({ commit }, { namespace, name, cron }) => {
   const req = await fetch(`${instance}/api/repos/${namespace}/${name}/cron/${cron.name}`, {
     headers,
     method: "DELETE",
-    credentials: "same-origin"
+    credentials: "include"
   });
 
   if (req.status < 300) {
@@ -88,7 +88,7 @@ export const createCron = async ({ commit }, { namespace, name, cron }) => {
     headers,
     method: "POST",
     body,
-    credentials: "same-origin"
+    credentials: "include"
   });
   const res = await req.json();
 
@@ -119,7 +119,7 @@ export const updateCron = async (dispatch, state, input) => {
     headers,
     method: "PATCH",
     body,
-    credentials: "same-origin"
+    credentials: "include"
   });
   const res = await req.json();
 

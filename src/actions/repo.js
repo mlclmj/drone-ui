@@ -9,7 +9,7 @@ export const fetchRepo = async (store, params) => {
   const { namespace, name } = params;
 
   return dispatchTypicalFetch(store, params, "REPO_FIND", () => {
-    return fetch(`${instance}/api/repos/${namespace}/${name}`, { headers, credentials: "same-origin" });
+    return fetch(`${instance}/api/repos/${namespace}/${name}`, { headers, credentials: "include" });
   });
 };
 
@@ -20,7 +20,7 @@ export const fetchRepo = async (store, params) => {
  */
 export const fetchReposLatest = store => {
   return dispatchTypicalFetch(store, null, "REPO_LIST_LATEST", () => {
-    return fetch(`${instance}/api/user/repos?latest=true`, { headers, credentials: "same-origin" });
+    return fetch(`${instance}/api/user/repos?latest=true`, { headers, credentials: "include" });
   });
 };
 
@@ -35,7 +35,7 @@ export const REPO_SYNC_FAILURE = "REPO_SYNC_FAILURE";
 export const syncRepos = async (dispatch, store) => {
   store.commit(REPO_SYNC_LOADING);
 
-  const req = await fetch(`${instance}/api/user/repos`, { headers, method: "POST", credentials: "same-origin" });
+  const req = await fetch(`${instance}/api/user/repos`, { headers, method: "POST", credentials: "include" });
 
   if (req.status > 299) {
     const res = await req.json();
@@ -59,7 +59,7 @@ export const enableRepo = async ({ commit }, { namespace, name }) => {
   const req = await fetch(`${instance}/api/repos/${namespace}/${name}`, {
     headers,
     method: "POST",
-    credentials: "same-origin"
+    credentials: "include"
   });
   const res = await req.json();
 
@@ -85,7 +85,7 @@ export const disableRepo = async ({ commit }, { namespace, name }) => {
   const req = await fetch(`${instance}/api/repos/${namespace}/${name}`, {
     headers,
     method: "DELETE",
-    credentials: "same-origin"
+    credentials: "include"
   });
   const res = await req.json();
 
@@ -110,7 +110,7 @@ export const chownRepo = async ({ commit }, { namespace, name }) => {
   const req = await fetch(`${instance}/api/repos/${namespace}/${name}/chown`, {
     headers,
     method: "POST",
-    credentials: "same-origin"
+    credentials: "include"
   });
   const res = await req.json();
 
@@ -136,7 +136,7 @@ export const repairRepo = async ({ commit }, { namespace, name }) => {
   const req = await fetch(`${instance}/api/repos/${namespace}/${name}/repair`, {
     headers,
     method: "POST",
-    credentials: "same-origin"
+    credentials: "include"
   });
   const res = await req.json();
 
@@ -163,7 +163,7 @@ export const updateRepo = async ({ commit }, { namespace, name, repo }) => {
     headers,
     method: "PATCH",
     body,
-    credentials: "same-origin"
+    credentials: "include"
   });
   const res = await req.json();
 

@@ -13,7 +13,7 @@ export const fetchBuilds = (store, params) => {
   return dispatchTypicalFetch(store, params, "BUILD_LIST", () => {
     return fetch(`${instance}/api/repos/${namespace}/${name}/builds?page=${page}`, {
       headers,
-      credentials: "same-origin"
+      credentials: "include"
     });
   });
 };
@@ -26,7 +26,7 @@ export const fetchBuild = async (store, params) => {
   const { namespace, name, build } = params;
 
   return dispatchTypicalFetch(store, params, "BUILD_FIND", () => {
-    return fetch(`${instance}/api/repos/${namespace}/${name}/builds/${build}`, { headers, credentials: "same-origin" });
+    return fetch(`${instance}/api/repos/${namespace}/${name}/builds/${build}`, { headers, credentials: "include" });
   });
 };
 
@@ -44,7 +44,7 @@ export const cancelBuild = async ({ commit }, { namespace, name, build }) => {
   const req = await fetch(`${instance}/api/repos/${namespace}/${name}/builds/${build}`, {
     headers,
     method: "DELETE",
-    credentials: "same-origin"
+    credentials: "include"
   });
   const res = await req.json();
 
@@ -69,7 +69,7 @@ export const createBuild = async ({ commit }, { namespace, name, build }) => {
   const req = await fetch(`${instance}/api/repos/${namespace}/${name}/builds/${build}`, {
     headers,
     method: "POST",
-    credentials: "same-origin"
+    credentials: "include"
   });
   const res = await req.json();
 
@@ -89,7 +89,7 @@ export const approveBuild = async (store, params) => {
     return fetch(`${instance}/api/repos/${namespace}/${name}/builds/${build}/approve/${stage}`, {
       headers,
       method: "POST",
-      credentials: "same-origin"
+      credentials: "include"
     });
   }).then(() => store.dispatch("fetchBuild", params));
 };
@@ -101,7 +101,7 @@ export const declineBuild = async (store, params) => {
     return fetch(`${instance}/api/repos/${namespace}/${name}/builds/${build}/decline/${stage}`, {
       headers,
       method: "POST",
-      credentials: "same-origin"
+      credentials: "include"
     });
   }).then(() => store.dispatch("fetchBuild", params));
 };
@@ -109,7 +109,7 @@ export const declineBuild = async (store, params) => {
 export const fetchBuildsFeed = async ({ commit }) => {
   commit("BUILDS_FEED_LOADING");
 
-  const req = await fetch(`${instance}/api/user/builds/recent`, { headers, credentials: "same-origin" });
+  const req = await fetch(`${instance}/api/user/builds/recent`, { headers, credentials: "include" });
   const res = await req.json();
 
   if (req.status < 300) {

@@ -9,7 +9,7 @@ export const fetchSecrets = (store, params) => {
   const { namespace, name } = params;
 
   return dispatchTypicalFetch(store, params, "SECRET_LIST", () => {
-    return fetch(`${instance}/api/repos/${namespace}/${name}/secrets`, { headers, credentials: "same-origin" });
+    return fetch(`${instance}/api/repos/${namespace}/${name}/secrets`, { headers, credentials: "include" });
   });
 };
 
@@ -26,7 +26,7 @@ export const fetchSecret = async ({ commit }, { namespace, name, secret }) => {
 
   const req = await fetch(`${instance}/api/repos/${namespace}/${name}/secrets/${secret}`, {
     headers,
-    credentials: "same-origin"
+    credentials: "include"
   });
   const res = await req.json();
 
@@ -51,7 +51,7 @@ export const deleteSecret = async ({ commit }, { namespace, name, secret }) => {
   const req = await fetch(`${instance}/api/repos/${namespace}/${name}/secrets/${secret.name}`, {
     headers,
     method: "DELETE",
-    credentials: "same-origin"
+    credentials: "include"
   });
 
   if (req.status < 300) {
@@ -79,7 +79,7 @@ export const createSecret = async ({ commit }, { namespace, name, secret }) => {
     headers,
     method: "POST",
     body,
-    credentials: "same-origin"
+    credentials: "include"
   });
   const res = await req.json();
 
@@ -110,7 +110,7 @@ export const updateSecret = async (dispatch, state, input) => {
     headers,
     method: "PATCH",
     body,
-    credentials: "same-origin"
+    credentials: "include"
   });
   const res = await req.json();
 

@@ -11,7 +11,7 @@ export const NODE_LIST_FAILURE = "NODE_LIST_FAILURE";
 export const fetchNodes = async store => {
   store.commit(NODE_LIST_LOADING);
 
-  const req = await fetch(`${instance}/api/nodes`, { headers, credentials: "same-origin" });
+  const req = await fetch(`${instance}/api/nodes`, { headers, credentials: "include" });
   const res = await req.json();
 
   if (req.status > 299) {
@@ -32,7 +32,7 @@ export const NODE_FIND_FAILURE = "NODE_FIND_FAILURE";
 export const fetchNode = async ({ commit }, { name }) => {
   commit(NODE_FIND_LOADING);
 
-  const req = await fetch(`${instance}/api/nodes/${name}`, { headers, credentials: "same-origin" });
+  const req = await fetch(`${instance}/api/nodes/${name}`, { headers, credentials: "include" });
   const res = await req.json();
 
   if (req.status > 299) {
@@ -58,7 +58,7 @@ export const updateNode = async ({ commit }, input) => {
     headers,
     method: "PATCH",
     body,
-    credentials: "same-origin"
+    credentials: "include"
   });
   const res = await req.json();
 
@@ -84,7 +84,7 @@ export const deleteNode = async ({ commit }, node) => {
   const req = await fetch(`${instance}/api/nodes/${node.name}`, {
     headers,
     method: "DELETE",
-    credentials: "same-origin"
+    credentials: "include"
   });
   const res = await req.json();
 

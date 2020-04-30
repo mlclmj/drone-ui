@@ -16,7 +16,7 @@ export const fetchMembers = async (dispatch, state) => {
   const { namespace, name } = state.route.params;
   const req = await fetch(`${instance}/api/repos/${namespace}/${name}/collaborators`, {
     headers,
-    credentials: "same-origin"
+    credentials: "include"
   });
   const res = await req.json();
 
@@ -51,7 +51,7 @@ export const deleteMember = async (dispatch, state, username) => {
   const req = await fetch(`${instance}/api/repos/${namespace}/${name}/collaborators/${username}`, {
     headers,
     method: "DELETE",
-    credentials: "same-origin"
+    credentials: "include"
   });
 
   if (req.status < 300) {

@@ -19,7 +19,7 @@ export const fetchLogs = async ({ commit }, params) => {
   const { namespace, name, build, stage, step } = params;
   const req = await fetch(`${instance}/api/repos/${namespace}/${name}/builds/${build}/logs/${stage}/${step}`, {
     headers,
-    credentials: "same-origin"
+    credentials: "include"
   });
   const res = await req.json();
 

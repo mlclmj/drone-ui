@@ -12,7 +12,7 @@ export const VIEWER_FIND_FAILURE = "VIEWER_FIND_FAILURE";
 export const fetchViewer = async context => {
   context.commit(VIEWER_FIND_LOADING);
 
-  const req = await fetch(`${instance}/api/user`, { headers, credentials: "same-origin" });
+  const req = await fetch(`${instance}/api/user`, { headers, credentials: "include" });
   const res = await req.json();
 
   if (req.status > 299) {
@@ -40,7 +40,7 @@ export const fetchViewer = async context => {
  */
 export const fetchViewerToken = store => {
   return dispatchTypicalFetch(store, null, "VIEWER_FIND_TOKEN", () => {
-    return fetch(`${instance}/api/user/token`, { headers, method: "POST", credentials: "same-origin" });
+    return fetch(`${instance}/api/user/token`, { headers, method: "POST", credentials: "include" });
   });
 };
 
@@ -59,7 +59,7 @@ export const syncAccount = async context => {
   let req = null;
 
   try {
-    req = await fetch(`${instance}/api/user/repos?async=true`, { headers, method: "POST", credentials: "same-origin" });
+    req = await fetch(`${instance}/api/user/repos?async=true`, { headers, method: "POST", credentials: "include" });
   } catch (e) {
     context.commit(VIEWER_SYNC_FAILURE, e);
     return;
@@ -81,7 +81,7 @@ export const syncPoll = async context => {
   const TIMEOUT = 10000; // 10 seconds
 
   let interval = setInterval(async function() {
-    const req = await fetch(`${instance}/api/user`, { headers, credentials: "same-origin" });
+    const req = await fetch(`${instance}/api/user`, { headers, credentials: "include" });
     const res = await req.json();
 
     if (req.status > 299) {
